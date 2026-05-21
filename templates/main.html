@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}Головна сторінка — Рецепти{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h1 class="display-5 mb-4 text-primary">Останні 5 створених рецептів</h1>
+    </div>
+</div>
+
+<div class="row">
+    {% for recipe in latest_recipes %}
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title fw-bold">{{ recipe.title }}</h5>
+                    <p class="card-text text-muted">{{ recipe.description|truncatewords:20 }}</p>
+                    <span class="badge bg-secondary mb-2">{{ recipe.category.name }}</span>
+                </div>
+                <div class="card-footer bg-transparent border-top-0">
+                    <small class="text-muted">Додано: {{ recipe.created_at|date:"d.m.Y H:i" }}</small>
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        <div class="col-12">
+            <div class="alert alert-info" role="alert">
+                Рецептів поки що немає. Завітайте пізніше!
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}
